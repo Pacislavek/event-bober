@@ -13,6 +13,25 @@ const guildId = '1083113535577522296';
 const reminderRoleId = '1473952099338555462';
 const buttonCustomId = '622c63d8644f4d83e995d0e573d7d363';
 
+async function sendDMWithRetry(user, message, retries = 3, delay = 2000) {
+  for (let attempt = 1; attempt <= retries; attempt++) {
+    try {
+      await user.send(message);
+      return; // Sukces, wyjdź
+    } catch (err) {
+      if (err.code === 50007) { // Nie można wysłać do użytkownika - nie retry
+        throw err;
+      }
+      console.error(`Attempt ${attempt} failed to send DM to ${user.id}:`, err);
+      if (attempt < retries) {
+        await new Promise(resolve => setTimeout(resolve, delay));
+      } else {
+        throw err; // Ostatnia próba nieudana
+      }
+    }
+  }
+}
+
 module.exports = async (client) => {
   try {
     const TOKEN = process.env.TOKEN;
@@ -63,7 +82,7 @@ module.exports = async (client) => {
                 .setCustomId(buttonCustomId),
               new ButtonBuilder()
                 .setStyle(ButtonStyle.Primary)
-                .setLabel("Poradnik Khan")
+                .setLabel("Poradnik na Khana")
                 .setURL("https://discord.com/channels/1083113535577522296/1472253433674334403")
             );
 
@@ -81,6 +100,7 @@ module.exports = async (client) => {
       cron.schedule('50 19 * * 5', async () => {
         try {
           const guild = await client.guilds.fetch(guildId);
+          await guild.members.fetch(); // Odśwież cache członków gildii
           const role = guild.roles.cache.get(reminderRoleId);
           if (!role) return;
 
@@ -96,10 +116,11 @@ module.exports = async (client) => {
               eightPM.setHours(20, 0, 0, 0);
               const eightTimestamp = Math.floor(eightPM.getTime() / 1000);
 
-              await member.user.send(`Przypomnienie: Bossy gildyjne zaczynają się za 10 minut! Dzisiaj (<t:${dayTimestamp}:d>) o <t:${eightTimestamp}:t>. Dołącz na [bossy gildyjne](https://discord.com/events/1083113535577522296/1459238856346833003)`);
+              const reminderMessage = `Przypomnienie: Bossy gildyjne zaczynają się za 10 minut! Dzisiaj (<t:${dayTimestamp}:d>) o <t:${eightTimestamp}:t>. Dołącz na [bossy gildyjne](https://discord.com/events/1083113535577522296/1459238856346833003)`;
+              await sendDMWithRetry(member.user, reminderMessage);
               console.log(`✅ Sent reminder to ${member.user.id}`);
             } catch (sendErr) {
-              console.error(`Failed to send reminder to ${member.user.id}:`, sendErr);
+              console.error(`Failed to send reminder to ${member.user.id} after retries:`, sendErr);
             }
 
             // Usuń rolę niezależnie od sukcesu wysyłki
@@ -143,7 +164,7 @@ module.exports = async (client) => {
                   .setDisabled(true),
                 new ButtonBuilder()
                   .setStyle(ButtonStyle.Primary)
-                  .setLabel("Poradnik Khan")
+                  .setLabel("Poradnik na Khana")
                   .setURL("https://discord.com/channels/1083113535577522296/1472253433674334403")
               );
 
@@ -170,8 +191,9 @@ module.exports = async (client) => {
           // Nadaj rolę
           await interaction.member.roles.add(reminderRoleId);
 
-          // Wyślij DM
-          await interaction.user.send('Dostaniesz podobną wiadomość 10 minut przed rozpoczęciem wydarzenia. To jest jednorazowe działanie.');
+          // Wyślij DM z retry
+          const confirmationMessage = 'Dostaniesz podobną wiadomość 10 minut przed rozpoczęciem wydarzenia. To jest jednorazowe działanie.';
+          await sendDMWithRetry(interaction.user, confirmationMessage);
 
           // Odpowiedz ephemerally
           await interaction.reply({ content: 'Przypomnienie ustawione!', ephemeral: true });
