@@ -5,7 +5,7 @@ module.exports = (client) => {
   console.log(`successfully finished startup`);
 
   client.user.setActivity({
-    name: 'Waiting for some bread...',
+    name: 'Najmroczniejszy Bot',
     type: ActivityType.Custom,
 });
 };

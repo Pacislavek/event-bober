@@ -1,0 +1,472 @@
+{
+  "month": "2026-05",
+  "users": {
+    "158297056107036672": {
+      "messages": 425,
+      "voiceTime": 33241,
+      "emojis": 85,
+      "swears": 12
+    },
+    "526177402267762719": {
+      "messages": 1142,
+      "voiceTime": 52709,
+      "emojis": 122,
+      "swears": 18
+    },
+    "446014226834784256": {
+      "messages": 480,
+      "voiceTime": 160593,
+      "emojis": 126,
+      "swears": 0
+    },
+    "896035149765021718": {
+      "messages": 694,
+      "voiceTime": 73369,
+      "emojis": 36,
+      "swears": 2
+    },
+    "453574972724477953": {
+      "messages": 194,
+      "voiceTime": 164061,
+      "emojis": 39,
+      "swears": 2
+    },
+    "1440475211781636208": {
+      "messages": 189,
+      "voiceTime": 69564,
+      "emojis": 8,
+      "swears": 2
+    },
+    "383505583518646284": {
+      "messages": 332,
+      "voiceTime": 49775,
+      "emojis": 5,
+      "swears": 7
+    },
+    "223024897251606528": {
+      "messages": 8,
+      "voiceTime": 311386,
+      "emojis": 0,
+      "swears": 3
+    },
+    "669668106771103762": {
+      "messages": 187,
+      "voiceTime": 117119,
+      "emojis": 11,
+      "swears": 4
+    },
+    "317101663758319627": {
+      "messages": 3,
+      "voiceTime": 14888,
+      "emojis": 2,
+      "swears": 0
+    },
+    "709485693310861362": {
+      "messages": 1,
+      "voiceTime": 196184,
+      "emojis": 0,
+      "swears": 0
+    },
+    "857949003311874068": {
+      "messages": 186,
+      "voiceTime": 69015,
+      "emojis": 29,
+      "swears": 2
+    },
+    "224300269033226240": {
+      "messages": 38,
+      "voiceTime": 0,
+      "emojis": 1,
+      "swears": 0
+    },
+    "204190581830844416": {
+      "messages": 297,
+      "voiceTime": 8727,
+      "emojis": 74,
+      "swears": 5
+    },
+    "348043707942961152": {
+      "messages": 142,
+      "voiceTime": 2844,
+      "emojis": 2,
+      "swears": 0
+    },
+    "289471744287309835": {
+      "messages": 53,
+      "voiceTime": 0,
+      "emojis": 4,
+      "swears": 0
+    },
+    "267258391376822272": {
+      "messages": 136,
+      "voiceTime": 0,
+      "emojis": 42,
+      "swears": 0
+    },
+    "254951614929043466": {
+      "messages": 222,
+      "voiceTime": 9282,
+      "emojis": 3,
+      "swears": 4
+    },
+    "709013662106517544": {
+      "messages": 3,
+      "voiceTime": 9917,
+      "emojis": 0,
+      "swears": 0
+    },
+    "339168694129262592": {
+      "messages": 5,
+      "voiceTime": 33175,
+      "emojis": 0,
+      "swears": 0
+    },
+    "235091121343168513": {
+      "messages": 234,
+      "voiceTime": 10131,
+      "emojis": 91,
+      "swears": 5
+    },
+    "289768603115323393": {
+      "messages": 10,
+      "voiceTime": 22399,
+      "emojis": 0,
+      "swears": 0
+    },
+    "449584368479109150": {
+      "messages": 7,
+      "voiceTime": 5212,
+      "emojis": 0,
+      "swears": 0
+    },
+    "645305280401375244": {
+      "messages": 3,
+      "voiceTime": 2200,
+      "emojis": 2,
+      "swears": 0
+    },
+    "316926958686699530": {
+      "messages": 36,
+      "voiceTime": 71402,
+      "emojis": 5,
+      "swears": 0
+    },
+    "190941265129373696": {
+      "messages": 6,
+      "voiceTime": 6389,
+      "emojis": 1,
+      "swears": 0
+    },
+    "423497022226563093": {
+      "messages": 40,
+      "voiceTime": 14405,
+      "emojis": 11,
+      "swears": 0
+    },
+    "510825287362150430": {
+      "messages": 12,
+      "voiceTime": 0,
+      "emojis": 0,
+      "swears": 0
+    },
+    "437557936185802762": {
+      "messages": 14,
+      "voiceTime": 0,
+      "emojis": 2,
+      "swears": 0
+    },
+    "455826345033859092": {
+      "messages": 2,
+      "voiceTime": 0,
+      "emojis": 0,
+      "swears": 0
+    },
+    "821798209973387265": {
+      "messages": 3,
+      "voiceTime": 129698,
+      "emojis": 0,
+      "swears": 0
+    },
+    "281150757083021312": {
+      "messages": 56,
+      "voiceTime": 221180,
+      "emojis": 0,
+      "swears": 2
+    },
+    "217566382160740352": {
+      "messages": 7,
+      "voiceTime": 7883,
+      "emojis": 0,
+      "swears": 0
+    },
+    "218389983550111748": {
+      "messages": 37,
+      "voiceTime": 86,
+      "emojis": 0,
+      "swears": 2
+    },
+    "211871912589131777": {
+      "messages": 20,
+      "voiceTime": 0,
+      "emojis": 6,
+      "swears": 0
+    },
+    "221691813713543169": {
+      "messages": 3,
+      "voiceTime": 0,
+      "emojis": 0,
+      "swears": 0
+    },
+    "1250417953518911488": {
+      "messages": 10,
+      "voiceTime": 0,
+      "emojis": 0,
+      "swears": 0
+    },
+    "194539264938213376": {
+      "messages": 7,
+      "voiceTime": 0,
+      "emojis": 0,
+      "swears": 1
+    },
+    "345176651711250432": {
+      "messages": 2,
+      "voiceTime": 0,
+      "emojis": 0,
+      "swears": 0
+    },
+    "207871605370650634": {
+      "messages": 7,
+      "voiceTime": 6899,
+      "emojis": 4,
+      "swears": 0
+    },
+    "1143226569641435237": {
+      "messages": 145,
+      "voiceTime": 6027,
+      "emojis": 8,
+      "swears": 3
+    },
+    "583027701263368202": {
+      "messages": 11,
+      "voiceTime": 6085,
+      "emojis": 1,
+      "swears": 1
+    },
+    "1430601392799879210": {
+      "messages": 7,
+      "voiceTime": 27863,
+      "emojis": 0,
+      "swears": 0
+    },
+    "954087361736761434": {
+      "messages": 19,
+      "voiceTime": 20546,
+      "emojis": 1,
+      "swears": 0
+    },
+    "420294844288598016": {
+      "messages": 3,
+      "voiceTime": 0,
+      "emojis": 0,
+      "swears": 0
+    },
+    "478644817715527680": {
+      "messages": 21,
+      "voiceTime": 28759,
+      "emojis": 2,
+      "swears": 0
+    },
+    "217766190582333441": {
+      "messages": 2,
+      "voiceTime": 268086,
+      "emojis": 0,
+      "swears": 0
+    },
+    "227435436224544779": {
+      "messages": 42,
+      "voiceTime": 1685,
+      "emojis": 6,
+      "swears": 0
+    },
+    "158924861857595392": {
+      "messages": 51,
+      "voiceTime": 0,
+      "emojis": 2,
+      "swears": 1
+    },
+    "470327010707767325": {
+      "messages": 12,
+      "voiceTime": 16151,
+      "emojis": 0,
+      "swears": 0
+    },
+    "1092850611915067493": {
+      "messages": 3,
+      "voiceTime": 6668,
+      "emojis": 0,
+      "swears": 0
+    },
+    "1409096395691917393": {
+      "messages": 3,
+      "voiceTime": 1964,
+      "emojis": 0,
+      "swears": 0
+    },
+    "1484244157412151507": {
+      "messages": 1,
+      "voiceTime": 0,
+      "emojis": 0,
+      "swears": 0
+    },
+    "591380236415926297": {
+      "messages": 0,
+      "voiceTime": 93198,
+      "emojis": 0,
+      "swears": 0
+    },
+    "412347257233604609": {
+      "messages": 0,
+      "voiceTime": 809,
+      "emojis": 0,
+      "swears": 0
+    },
+    "1005919974096912454": {
+      "messages": 42,
+      "voiceTime": 0,
+      "emojis": 3,
+      "swears": 5
+    },
+    "281060032789872640": {
+      "messages": 1,
+      "voiceTime": 0,
+      "emojis": 0,
+      "swears": 0
+    },
+    "136446930749227009": {
+      "messages": 4,
+      "voiceTime": 7112,
+      "emojis": 0,
+      "swears": 0
+    },
+    "697161492524695582": {
+      "messages": 0,
+      "voiceTime": 5093,
+      "emojis": 0,
+      "swears": 0
+    },
+    "462007120150396928": {
+      "messages": 9,
+      "voiceTime": 17268,
+      "emojis": 5,
+      "swears": 0
+    },
+    "440491887745564672": {
+      "messages": 12,
+      "voiceTime": 0,
+      "emojis": 0,
+      "swears": 0
+    },
+    "1400141442038370466": {
+      "messages": 23,
+      "voiceTime": 0,
+      "emojis": 3,
+      "swears": 0
+    },
+    "493869971286523914": {
+      "messages": 4,
+      "voiceTime": 0,
+      "emojis": 1,
+      "swears": 0
+    },
+    "702281038029652120": {
+      "messages": 1,
+      "voiceTime": 3911,
+      "emojis": 0,
+      "swears": 0
+    },
+    "691992264410398810": {
+      "messages": 0,
+      "voiceTime": 5351,
+      "emojis": 0,
+      "swears": 0
+    },
+    "308231388157575168": {
+      "messages": 3,
+      "voiceTime": 0,
+      "emojis": 1,
+      "swears": 0
+    },
+    "481873036400918528": {
+      "messages": 8,
+      "voiceTime": 0,
+      "emojis": 1,
+      "swears": 1
+    },
+    "713069645015416843": {
+      "messages": 0,
+      "voiceTime": 52079,
+      "emojis": 0,
+      "swears": 0
+    },
+    "356905762301280256": {
+      "messages": 6,
+      "voiceTime": 0,
+      "emojis": 2,
+      "swears": 0
+    },
+    "561275094651895818": {
+      "messages": 1,
+      "voiceTime": 0,
+      "emojis": 1,
+      "swears": 0
+    },
+    "230736472875991040": {
+      "messages": 1,
+      "voiceTime": 7883,
+      "emojis": 0,
+      "swears": 0
+    },
+    "338728596665532417": {
+      "messages": 3,
+      "voiceTime": 0,
+      "emojis": 2,
+      "swears": 0
+    },
+    "695628477742710836": {
+      "messages": 21,
+      "voiceTime": 0,
+      "emojis": 5,
+      "swears": 0
+    },
+    "271592663197810688": {
+      "messages": 14,
+      "voiceTime": 0,
+      "emojis": 2,
+      "swears": 0
+    },
+    "269760617768812545": {
+      "messages": 1,
+      "voiceTime": 2163,
+      "emojis": 0,
+      "swears": 0
+    },
+    "169063412809072640": {
+      "messages": 3,
+      "voiceTime": 1872,
+      "emojis": 3,
+      "swears": 0
+    }
+  },
+  "voiceChannels": {
+    "1083113537293008991": 1096648,
+    "1083113537293008992": 587313,
+    "1083113536642891822": 108986,
+    "1324843204889018519": 451602,
+    "1187395880958046259": 65609,
+    "1083113537293008994": 28299,
+    "1083118163673239633": 1074,
+    "1083113536642891821": 12957,
+    "1408631639390552154": 101818
+  }
+}
