@@ -18,10 +18,14 @@ const missionPointsMap = {
 
 async function createMission(data) {
     const { creator_id, category, sub_type, size, helpers = [], channel_id, message_id } = data;
+    
+    // ZAWSZE zapisujemy poprawny JSON (nawet pustą tablicę)
+    const helpersJson = JSON.stringify(Array.isArray(helpers) ? helpers : []);
+
     const [result] = await boberdb.query(
         `INSERT INTO missions (creator_id, category, sub_type, size, helpers, completed, channel_id, message_id)
          VALUES (?, ?, ?, ?, ?, 0, ?, ?)`,
-        [creator_id, category, sub_type, size, JSON.stringify(helpers), channel_id, message_id]
+        [creator_id, category, sub_type, size, helpersJson, channel_id, message_id]
     );
     return result.insertId;
 }
@@ -34,9 +38,23 @@ async function getMissionByMessageId(messageId) {
 async function addHelpers(messageId, newHelpers) {
     const mission = await getMissionByMessageId(messageId);
     if (!mission) return null;
-    const current = mission.helpers ? JSON.parse(mission.helpers) : [];
+
+    // Bezpieczne parsowanie (naprawia crash "Unexpected end of JSON input")
+    let current = [];
+    if (mission.helpers) {
+        try {
+            current = JSON.parse(mission.helpers);
+        } catch (e) {
+            current = [];
+        }
+    }
+
     const updated = [...new Set([...current, ...newHelpers])];
-    await boberdb.query('UPDATE missions SET helpers = ? WHERE message_id = ?', [JSON.stringify(updated), messageId]);
+    await boberdb.query(
+        'UPDATE missions SET helpers = ? WHERE message_id = ?',
+        [JSON.stringify(updated), messageId]
+    );
+
     return updated;
 }
 
@@ -52,17 +70,10 @@ function getPoints(size) {
     return missionPointsMap[size] || 1000;
 }
 
-// TODO: później dodamy daily stats + reset o 02:00 (cron)
-async function incrementMissionStats(userId, points) {
-    // placeholder na przyszłe statystyki
-    console.log(`📊 Misja +${points} pkt dla ${userId}`);
-}
-
 module.exports = {
     createMission,
     getMissionByMessageId,
     addHelpers,
     completeMission,
-    getPoints,
-    incrementMissionStats
+    getPoints
 };

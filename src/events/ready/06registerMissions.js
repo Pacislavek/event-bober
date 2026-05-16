@@ -70,7 +70,9 @@ const missionConfigs = {
     trading: {
         name: 'Trading',
         customId: 'mission_trading',
-        subTypes: [{ label: 'Barter X Times', value: 'Barter X Times', emoji: '<:DziuplaLogo:1473953012375359692>' }],
+        subTypes: [
+            { label: 'Barter X Times', value: 'Barter X Times', emoji: '<:DziuplaLogo:1473953012375359692>' }
+        ],
         sizes: [
             { label: 'Small (20)', value: 'Small (20)', emoji: '<:DziuplaLogo:1473953012375359692>' },
             { label: 'Small (40)', value: 'Small (40)', emoji: '<:DziuplaLogo:1473953012375359692>' },
@@ -112,7 +114,7 @@ const missionConfigs = {
 
 // ==================== BUDOWANIE EMBEDU MISJI ====================
 function buildMissionEmbed(categoryName, creatorId, subType, size, helpers = [], completed = false) {
-    const color = completed ? 0x808080 : 0xffaa00; // szary / żółty
+    const color = completed ? 0x808080 : 0xffaa00;
     const thumbnail = thumbnailMap[categoryName] || null;
 
     return new EmbedBuilder()
@@ -136,22 +138,44 @@ function buildMissionModal(categoryKey) {
         .setTitle(`🎯 ${config.name} - Nowa misja`);
 
     const subTypeSelect = new StringSelectMenuBuilder()
-        .setCustomId('sub_type').setPlaceholder('Wybierz rodzaj misji')
-        .setMinValues(1).setMaxValues(1).setRequired(true)
-        .addOptions(config.subTypes.map(opt => new StringSelectMenuOptionBuilder().setLabel(opt.label).setValue(opt.value).setEmoji(opt.emoji)));
+        .setCustomId('sub_type')
+        .setPlaceholder('Wybierz rodzaj misji')
+        .setMinValues(1)
+        .setMaxValues(1)
+        .setRequired(true)
+        .addOptions(config.subTypes.map(opt =>
+            new StringSelectMenuOptionBuilder()
+                .setLabel(opt.label)
+                .setValue(opt.value)
+                .setEmoji(opt.emoji)
+        ));
 
     const sizeSelect = new StringSelectMenuBuilder()
-        .setCustomId('size').setPlaceholder('Wybierz rozmiar misji')
-        .setMinValues(1).setMaxValues(1).setRequired(true)
-        .addOptions(config.sizes.map(opt => new StringSelectMenuOptionBuilder().setLabel(opt.label).setValue(opt.value).setEmoji(opt.emoji)));
+        .setCustomId('size')
+        .setPlaceholder('Wybierz rozmiar misji')
+        .setMinValues(1)
+        .setMaxValues(1)
+        .setRequired(true)
+        .addOptions(config.sizes.map(opt =>
+            new StringSelectMenuOptionBuilder()
+                .setLabel(opt.label)
+                .setValue(opt.value)
+                .setEmoji(opt.emoji)
+        ));
 
     const helpersSelect = new UserSelectMenuBuilder()
-        .setCustomId('helpers').setPlaceholder('Wybierz pomocników (opcjonalnie)')
-        .setMinValues(0).setMaxValues(5).setRequired(false);
+        .setCustomId('helpers')
+        .setPlaceholder('Wybierz pomocników (opcjonalnie)')
+        .setMinValues(0)
+        .setMaxValues(5)
+        .setRequired(false);
 
     const completedSelect = new StringSelectMenuBuilder()
-        .setCustomId('completed').setPlaceholder('Czy misja jest już zakończona?')
-        .setMinValues(1).setMaxValues(1).setRequired(true)
+        .setCustomId('completed')
+        .setPlaceholder('Czy misja jest już zakończona?')
+        .setMinValues(1)
+        .setMaxValues(1)
+        .setRequired(true)
         .addOptions([
             new StringSelectMenuOptionBuilder().setLabel('✅ Tak').setValue('1').setEmoji('✅'),
             new StringSelectMenuOptionBuilder().setLabel('❌ Nie').setValue('0').setEmoji('❌')
@@ -175,7 +199,9 @@ function buildAddHelpersModal(messageId) {
     const helpersSelect = new UserSelectMenuBuilder()
         .setCustomId('new_helpers')
         .setPlaceholder('Wybierz dodatkowych pomocników')
-        .setMinValues(1).setMaxValues(5).setRequired(true);
+        .setMinValues(1)
+        .setMaxValues(5)
+        .setRequired(true);
 
     modal.addLabelComponents(
         new LabelBuilder().setLabel('Pomocnicy').setDescription('Kto dołącza do misji?').setUserSelectMenuComponent(helpersSelect)
@@ -189,28 +215,43 @@ async function setupMissionRegistrationMessage(client) {
     const channel = await client.channels.fetch(MISSION_CHANNEL_ID).catch(() => null);
     if (!channel) return console.error('❌ Nie znaleziono kanału misji');
 
-    const embed = new EmbedBuilder()
+    const mainEmbed = new EmbedBuilder()
         .setColor(0x00ff00)
         .setTitle('🎯 Zarejestruj misje')
         .setDescription('Wybierz kategorię misji, którą chcesz zarejestrować:')
         .setTimestamp();
 
-    const row = new ActionRowBuilder().addComponents(
+    const mainRow = new ActionRowBuilder().addComponents(
         new ButtonBuilder().setCustomId('mission_subjugation').setLabel('Subjugation').setStyle(ButtonStyle.Primary).setEmoji('<:DziuplaLogo:1473953012375359692>'),
         new ButtonBuilder().setCustomId('mission_life').setLabel('Life').setStyle(ButtonStyle.Primary).setEmoji('<:DziuplaLogo:1473953012375359692>'),
         new ButtonBuilder().setCustomId('mission_trading').setLabel('Trading').setStyle(ButtonStyle.Primary).setEmoji('<:DziuplaLogo:1473953012375359692>'),
         new ButtonBuilder().setCustomId('mission_boss_subjugation').setLabel('Boss Subjugation').setStyle(ButtonStyle.Primary).setEmoji('<:DziuplaLogo:1473953012375359692>')
     );
 
+    // ==================== POPRAWIONE WYSZUKIWANIE ISTNIEJĄCEJ WIADOMOŚCI ====================
     const messages = await channel.messages.fetch({ limit: 50 });
-    let existing = messages.find(msg => msg.author.id === client.user.id && msg.components?.some(r => r.components?.some(c => c.customId?.startsWith('mission_'))));
+    let existing = messages.find(msg => {
+        if (msg.author.id !== client.user.id) return false;
+        
+        // Sprawdzamy po tytule embeda (najpewniejsza metoda)
+        const hasCorrectTitle = msg.embeds?.some(embed => 
+            embed.title?.includes('Zarejestruj misje')
+        );
+        
+        // Dodatkowe sprawdzenie po customId przycisków
+        const hasMissionButtons = msg.components?.some(row =>
+            row.components?.some(comp => comp.customId?.startsWith('mission_'))
+        );
+
+        return hasCorrectTitle || hasMissionButtons;
+    });
 
     if (existing) {
-        await existing.edit({ embeds: [embed], components: [row] });
-        console.log('✅ Mission registration message updated');
+        await existing.edit({ embeds: [mainEmbed], components: [mainRow] });
+        console.log('✅ Mission registration message updated (existing found)');
     } else {
-        await channel.send({ embeds: [embed], components: [row] });
-        console.log('✅ Mission registration message created');
+        await channel.send({ embeds: [mainEmbed], components: [mainRow] });
+        console.log('✅ Mission registration message created (new)');
     }
 
     // ==================== GŁÓWNY LISTENER INTERAKCJI ====================
@@ -224,7 +265,7 @@ async function setupMissionRegistrationMessage(client) {
 
         // 2. Submit głównego modala
         if (interaction.isModalSubmit() && interaction.customId.startsWith('mission_modal_')) {
-            await interaction.deferReply({ ephemeral: true });
+            await interaction.deferReply({ flags: 64 });
             const categoryKey = interaction.customId.replace('mission_modal_', '');
             const config = missionConfigs[categoryKey];
 
@@ -232,6 +273,7 @@ async function setupMissionRegistrationMessage(client) {
             const size = interaction.fields.getStringSelectValues('size')[0];
             const helpersField = interaction.fields.getField('helpers');
             const helpers = helpersField?.value ?? [];
+
             const completed = interaction.fields.getStringSelectValues('completed')[0] === '1';
 
             const embed = buildMissionEmbed(config.name, interaction.user.id, subType, size, helpers, completed);
@@ -267,7 +309,7 @@ async function setupMissionRegistrationMessage(client) {
 
         // 4. Submit modala dodawania pomocników
         if (interaction.isModalSubmit() && interaction.customId.startsWith('add_helpers_modal_')) {
-            await interaction.deferReply({ ephemeral: true });
+            await interaction.deferReply({ flags: 64 });
             const messageId = interaction.customId.replace('add_helpers_modal_', '');
             const newHelpersField = interaction.fields.getField('new_helpers');
             const newHelpers = newHelpersField?.value ?? [];
@@ -275,7 +317,6 @@ async function setupMissionRegistrationMessage(client) {
             const updatedHelpers = await missionManager.addHelpers(messageId, newHelpers);
             if (!updatedHelpers) return interaction.editReply({ content: '❌ Nie znaleziono misji.' });
 
-            // Pobieramy aktualną misję z bazy i budujemy embed od nowa
             const mission = await missionManager.getMissionByMessageId(messageId);
             if (mission) {
                 const msg = await interaction.channel.messages.fetch(messageId).catch(() => null);
@@ -291,7 +332,6 @@ async function setupMissionRegistrationMessage(client) {
                     await msg.edit({ embeds: [newEmbed] });
                 }
             }
-
             return interaction.editReply({ content: `✅ Dodano ${newHelpers.length} pomocników!` });
         }
 
@@ -299,7 +339,7 @@ async function setupMissionRegistrationMessage(client) {
         if (interaction.isButton() && interaction.customId.startsWith('complete_mission_')) {
             const messageId = interaction.customId.split('_')[2];
             const updated = await missionManager.completeMission(messageId);
-            if (!updated) return interaction.reply({ content: '❌ Nie znaleziono misji.', ephemeral: true });
+            if (!updated) return interaction.reply({ content: '❌ Nie znaleziono misji.', flags: 64 });
 
             const msg = await interaction.channel.messages.fetch(messageId).catch(() => null);
             if (msg) {
@@ -313,12 +353,11 @@ async function setupMissionRegistrationMessage(client) {
                 );
                 await msg.edit({ embeds: [newEmbed], components: [] });
             }
-
-            return interaction.reply({ content: '✅ Misja została oznaczona jako zakończona!', ephemeral: true });
+            return interaction.reply({ content: '✅ Misja została oznaczona jako zakończona!', flags: 64 });
         }
     });
 
-    console.log('✅ System misji gildyjnych uruchomiony – wszystkie poprawki zastosowane');
+    console.log('✅ System misji gildyjnych uruchomiony – persistent message poprawiony');
 }
 
 module.exports = setupMissionRegistrationMessage;
